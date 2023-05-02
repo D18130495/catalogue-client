@@ -45,11 +45,12 @@
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
+                background
                 :page-sizes="[8, 12]"
                 :current-page.sync=current
                 :page-size=limit
                 :total=total
-                layout="total, sizes, prev, pager, next, jumper">
+                :layout="paginationLayout">
             </el-pagination>
           </div>
         </div>
@@ -79,8 +80,16 @@ export default {
       total: 0,
       options: [],
       value: [],
-      loading: false
+      loading: false,
+      paginationLayout: 'total, sizes, prev, pager, next, jumper'
     }
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
   },
   created() {
     this.initialPage()
@@ -141,6 +150,13 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    handleResize() {
+      if (window.innerWidth < 700) {
+        this.paginationLayout = 'prev, pager, next';
+      } else {
+        this.paginationLayout = 'total, sizes, prev, pager, next, jumper';
+      }
     }
   }
 }
