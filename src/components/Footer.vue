@@ -9,7 +9,7 @@
       </div>
 
       <div class="icon">
-        <a class="sci" href="https://github.com/D18130495/Advanced-Web-Mapping" target="_blank">
+        <a class="sci" href="https://github.com/D18130495/catalogue-client" target="_blank">
           <font-awesome-icon :icon="['fab', 'github']" size="2xl" />
         </a>
       </div>

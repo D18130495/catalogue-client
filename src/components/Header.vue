@@ -1,13 +1,13 @@
 <template>
   <header class="header">
     <nav class="navbar">
-      <a href="#" class="nav-logo">Catalogue.</a>
+      <a class="nav-logo">Catalogue.</a>
       <ul class="nav-menu" :class="{ 'active': isMobileMenuOpen }">
         <li class="nav-item">
-          <a href="#" class="nav-link" @click="closeMenu">Home</a>
+          <a href="/" class="nav-link" @click="closeMenu">Home</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link" @click="closeMenu">Add product</a>
+          <a href="/addProduct" class="nav-link" @click="closeMenu">Add product</a>
         </li>
       </ul>
       <div class="mobileMenu" :class="{ 'active': isMobileMenuOpen }" @click="toggleMobileMenu">

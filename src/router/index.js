@@ -1,12 +1,15 @@
-import Vue from 'vue'
-import  VueRouter from 'vue-router'
+import Vue from 'vue';
+import  VueRouter from 'vue-router';
 
-import Home from "@/views/Home"
+import Home from "@/views/Home";
+import Product from "@/views/Product";
+import AddProduct from "@/views/AddProduct";
+import EditProduct from "@/views/EditProduct";
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     routes:[
         {
             path: '/',
@@ -14,11 +17,32 @@ const router = new VueRouter({
             component: Home,
             meta: {
                 requireLogin: false
+            }
+        },
+        {
+            path: '/product/:id',
+            name: 'ProductDetail',
+            component: Product,
+            meta: {
+                requireLogin: false
             },
-            children: [
-
-            ]
-        }
+        },
+        {
+            path: '/addProduct',
+            name: 'addProduct',
+            component: AddProduct,
+            meta: {
+                requireLogin: false
+            },
+        },
+        {
+            path: '/editProduct/:id',
+            name: 'editProduct',
+            component: EditProduct,
+            meta: {
+                requireLogin: false
+            },
+        },
     ]
 })
 

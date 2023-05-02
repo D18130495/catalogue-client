@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+/* add */
+.add {
+    margin-top: 50px;
+}
+
+.backButton {
+    margin-left: 10%;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add .addTitle {
+    margin-top: 20px;
+}
+
+.add .addTitle h1 {
+    font-size: 50px;
+}
+
+.add .addForm {
+    margin-top: 20px;
+    width: 700px;
+}
+
+.addImage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+@media (min-width: 0px) {
+    .add .addForm {
+        margin-top: 20px;
+        padding-bottom: 200px;
+        width: 300px;
+    }
+}
+
+@media (min-width: 400px) {
+    .add .addForm {
+        margin-top: 20px;
+        padding-bottom: 200px;
+        width: 500px;
+    }
+}
+
+@media (min-width: 750px) {
+    .add .addForm {
+        margin-top: 20px;
+        width: 700px;
+        padding-bottom: 200px;
+    }
+}

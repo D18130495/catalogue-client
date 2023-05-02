@@ -1,10 +1,11 @@
 @import "header.css";
 @import "footer.css";
 @import "home.css";
+@import "product.css";
+@import "add.css";
+@import "edit.css";
 
-/*
-    base element
-*/
+/* base element */
 * {
     margin: 0;
     padding: 0;
