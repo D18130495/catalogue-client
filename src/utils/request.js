@@ -8,6 +8,19 @@ const service = axios.create({
     timeout: 50000
 })
 
+// request interceptor
+service.interceptors.request.use(
+    config => {
+        // start the timer
+        config.metadata = { startTime: new Date() }
+
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
+
 // response interceptor
 service.interceptors.response.use(
     response => {
@@ -42,7 +55,6 @@ service.interceptors.response.use(
 
         return Promise.reject(error.response);
     }
-
 )
 
 export default service

@@ -28,7 +28,6 @@
 }
 
 .nav-menu {
-    z-index: 99999;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,13 +37,13 @@
     margin-left: 5rem;
 }
 
-.nav-link{
+.nav-link {
     font-size: 1.3rem;
     font-weight: 400;
     color: #475569;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     color: #482ff7;
 }
 
@@ -70,6 +69,7 @@
     }
 
     .nav-menu.active {
+        z-index: 99999;
         left: 0;
     }
 

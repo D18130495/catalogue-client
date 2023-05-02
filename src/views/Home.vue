@@ -62,6 +62,7 @@
 <script>
 import ProductCard from '@/components/ProductCard';
 import productApi from '@/api/product';
+import {Message} from "element-ui";
 
 
 export default {
@@ -128,9 +129,38 @@ export default {
       this.current = 1
       this.total = 0
       this.queryForm.categories = Object.values(this.value)
-      this.getProductPagination(this.current, this.limit, this.queryForm)
+
+      productApi.getProductPagination(this.current, this.limit, this.queryForm)
+          .then(response => {
+            this.products = response.data.data.products
+            this.current = response.data.data.current
+            this.limit = response.data.data.limit
+            this.total = response.data.data.total
+
+            // calculate the time difference
+            const endTime = new Date()
+            const startTime = response.config.metadata.startTime
+            const duration = endTime - startTime
+
+            // display the duration in milliseconds
+            Message.success({
+              message: `Search request took ${duration}ms to complete`,
+              showClose: true,
+              duration: 2500
+            })
+          })
+          .catch(error => {
+            console.log(error)
+          })
     },
     handleSizeChange(val) {
+      this.limit = val
+      const totalPages = Math.ceil(this.total / this.limit)
+
+      if (this.current > totalPages) {
+        this.current = totalPages
+      }
+
       this.getProductPagination(this.current, val, this.queryForm)
     },
     handleCurrentChange(val) {

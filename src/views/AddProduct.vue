@@ -29,13 +29,25 @@
           </el-form-item>
 
           <el-form-item required :rules="[{ required: true, message: 'Discount is required' },
-          { validator: validateNumber, message: 'Price must be a number' }]" label="Discount" prop="discountPercentage">
+          { validator: validateNumber, message: 'Discount must be a number' }]" label="Discount" prop="discountPercentage">
             <el-input v-model="product.discountPercentage"></el-input>
           </el-form-item>
 
           <el-form-item required :rules="[{ required: true, message: 'Stock is required' },
-          { validator: validateNumber, message: 'Price must be a number' }]" label="Stock" prop="stock">
+          { validator: validateNumber, message: 'Stock must be a number' }]" label="Stock" prop="stock">
             <el-input v-model="product.stock"></el-input>
+          </el-form-item>
+
+          <el-form-item required :rules="[{ required: true, message: 'Rate is required' },
+          { validator: validateRating, message: 'Rate should between 0 - 5' }]" label="Rate" prop="rating">
+            <el-row>
+              <el-col :xs="15" :sm="7" :lg="7">
+                <el-rate class="form-item-rating" v-model="product.rating" :colors="colors" show-score allow-half></el-rate>
+              </el-col>
+              <el-col :xs="9" :sm="4" :lg="4">
+                <el-input v-model="product.rating"></el-input>
+              </el-col>
+            </el-row>
           </el-form-item>
 
           <el-form-item required :rules="[{ required: true, message: 'Description is required' }]" label="Description" prop="description">
@@ -75,6 +87,7 @@
 
 <script>
 import productApi from "@/api/product";
+import {Message} from "element-ui";
 
 
 export default {
@@ -88,10 +101,12 @@ export default {
         price: '',
         discountPercentage: '',
         stock: '',
+        rating: 0,
         description: '',
         thumbnail: '',
         images: []
-      }
+      },
+      colors: ['#99A9BF', '#F7BA2A', '#FF9900']
     }
   },
   created() {
@@ -99,10 +114,19 @@ export default {
   },
   methods: {
     validateNumber(rule, value, callback) {
-      if (!isNaN(parseFloat(value)) && isFinite(value)) {
+      if(!isNaN(parseFloat(value)) && isFinite(value)) {
+        callback();
+      }else {
+        callback(new Error('Please enter a valid number'));
+      }
+    },
+    validateRating(rule, value, callback) {
+      const floatValue = parseFloat(value);
+
+      if(!isNaN(floatValue) && floatValue >= 0 && floatValue <= 5) {
         callback();
       } else {
-        callback(new Error('Please enter a valid number'));
+        callback(new Error('Rate should be a number between 0 and 5'));
       }
     },
     goBack() {
@@ -121,6 +145,18 @@ export default {
                   type: 'success',
                   duration: 1500
                 });
+
+                // calculate the time difference
+                const endTime = new Date()
+                const startTime = response.config.metadata.startTime
+                const duration = endTime - startTime
+
+                // display the duration in milliseconds
+                Message.success({
+                  message: `Add request took ${duration}ms to complete`,
+                  showClose: true,
+                  duration: 2500
+                })
 
                 this.$router.push('/product/' + this.product.id);
               })
@@ -147,5 +183,7 @@ export default {
 </script>
 
 <style scoped>
-
+.form-item-rating {
+  margin-top: 11px;
+}
 </style>

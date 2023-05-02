@@ -71,6 +71,7 @@
 
 <script>
 import productApi from '@/api/product';
+import {Message} from "element-ui";
 
 
 export default {
@@ -110,6 +111,18 @@ export default {
                 type: 'success',
                 duration: 1500
               });
+
+              // calculate the time difference
+              const endTime = new Date()
+              const startTime = response.config.metadata.startTime
+              const duration = endTime - startTime
+
+              // display the duration in milliseconds
+              Message.success({
+                message: `Delete request took ${duration}ms to complete`,
+                showClose: true,
+                duration: 2500
+              })
 
               this.$router.push({ name: "Home" });
             })
